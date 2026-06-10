@@ -5,6 +5,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import utils.Validaciones;
 
 
 public class Categoria extends Base{
@@ -17,8 +18,17 @@ public class Categoria extends Base{
     // Constructor
     public Categoria (String nombre, String descripcion){
         super(++contadorId);
-        this.nombre = nombre;
-        this.descripcion = descripcion;
+        
+        // Se valida que nombre y descripción no estén vacios o sean null.
+        if(Validaciones.esTextoVacio(nombre)) {
+            throw new IllegalArgumentException("El nombre de la categoría no puede estar vacío");
+        }
+        if(Validaciones.esTextoVacio(descripcion)) {
+            throw new IllegalArgumentException("La descripción de la categoría no puede estar vacía");
+        }
+        
+        this.nombre = nombre.trim();
+        this.descripcion = descripcion.trim();
         this.productos = new ArrayList<>();
     }
 
@@ -38,16 +48,29 @@ public class Categoria extends Base{
     // Setters
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if(Validaciones.esTextoVacio(nombre)) {
+            throw new IllegalArgumentException("El nombre de la categoría no puede estar vacío");
+        }
+        this.nombre = nombre.trim();
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        if(Validaciones.esTextoVacio(descripcion)) {
+            throw new IllegalArgumentException("La descripción de la categoría no puede estar vacía");
+        }
+        this.descripcion = descripcion.trim();
     }
     
     // Metodos
     
     public void agregarProducto(Producto producto){
+        //Se valida que el producto no sea nulo ni esté duplicado
+        if(producto == null){
+            throw new IllegalArgumentException("No se puede agregar un producto nulo");
+        }
+        if(productos.contains(producto)) {
+            throw new IllegalArgumentException("Este producto ya existe en esta categoría");
+        }
         productos.add(producto);
         // producto.setCategoria(this);  Cuando se desarrolle la clase producto, se descomenta esa linea.
     }
@@ -55,8 +78,7 @@ public class Categoria extends Base{
     // toString
     @Override
     public String toString() {
-        return "Categoria{" + "id=" + getId() + ", nombre=" + nombre + ", descripcion=" + descripcion + ", productos=" + productos + '}';
+        return "Categoria{" + "id=" + getId() + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
     }
-    
     
 }
