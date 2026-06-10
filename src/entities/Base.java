@@ -3,6 +3,40 @@ package entities;
 
 //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
-public class Base {
+import java.time.LocalDateTime;
 
+
+public abstract class Base {
+    
+    private Long id;
+    private boolean eliminado;
+    private LocalDateTime createdAt;
+    
+    // Constructor
+    public Base (Long id) {
+        this.id = id;
+        this.createdAt = LocalDateTime.now();
+        this.eliminado=false;
+    }
+    
+    // Getters
+    public Long getId() {
+        return id;
+    }
+    
+    public boolean getEliminado() {
+        return eliminado;
+    }
+    
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    
+    // Setters
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
+
+    @Override
+    public abstract String toString();
 }
