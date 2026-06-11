@@ -3,6 +3,7 @@ package services;
  //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 import entities.Categoria;
 import data.Data;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaService {
@@ -12,7 +13,9 @@ public class CategoriaService {
     }
 
     public static List<Categoria> listar() {
-        return Data.categorias;
+        List<Categoria> categoriasFiltradas = new ArrayList<>(Data.categorias); //Creo un nuevo array para no modificar la lista original
+        categoriasFiltradas.removeIf(cat -> cat.getEliminado()); //Remuevo de la lista las categorias que tengan valor 'true' en atributo eliminado
+        return categoriasFiltradas;
     }
 
     public static Categoria buscarPorId(Long id) {
