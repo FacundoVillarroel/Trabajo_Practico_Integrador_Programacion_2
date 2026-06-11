@@ -3,6 +3,7 @@ package subMenu;
 
  //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 import entities.Categoria;
+import exceptions.EntidadDuplicadaException;
 import java.util.List;
 import java.util.Scanner;
 import services.CategoriaService;
@@ -42,11 +43,13 @@ public class MenuCategoria {
                     System.out.print("Ingrese la descripción: ");
                     String descripcion = input.nextLine();
                     try {
-                        CategoriaService.crear(nombre, descripcion);
-                        System.out.println("Categoria creada correctamente");
+                        Categoria categoriaCreada = CategoriaService.crear(nombre, descripcion);
+                        System.out.println("Categoria creada correctamente con id: " + categoriaCreada.getId());
                     } catch(IllegalArgumentException error) {
                         System.out.println(error.getMessage()); //Imprimo el mensaje de error creado en la clase Categoria
-                    }    
+                    } catch(EntidadDuplicadaException error) {
+                        System.out.println(error.getMessage());
+                    }
                     break;
 
                 case "3":

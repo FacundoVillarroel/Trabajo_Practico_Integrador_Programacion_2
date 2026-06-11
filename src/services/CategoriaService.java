@@ -3,14 +3,21 @@ package services;
  //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 import entities.Categoria;
 import data.Data;
+import exceptions.EntidadDuplicadaException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaService {
     public static Categoria crear(String nombre, String descripcion) {
-            Categoria categoria = new Categoria(nombre, descripcion);
-            Data.categorias.add(categoria);
-            return categoria;
+        for (Categoria cat : Data.categorias) { //Recorro la lista de categorias creadas, si hay una con el mismo nombre lanzo error
+            if (nombre.equalsIgnoreCase(cat.getNombre())){
+                throw new EntidadDuplicadaException("Ya existe una categoria con el nombre '" + nombre + "'");
+            }
+        }
+        
+        Categoria categoria = new Categoria(nombre, descripcion);
+        Data.categorias.add(categoria);
+        return categoria;
     }
 
     public static List<Categoria> listar() {
