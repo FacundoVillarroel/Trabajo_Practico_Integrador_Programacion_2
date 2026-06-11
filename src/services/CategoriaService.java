@@ -16,14 +16,26 @@ public class CategoriaService {
     }
 
     public static Categoria buscarPorId(Long id) {
-        return null;
+        Categoria categoriaEncontrada = null;
+        for (Categoria categoria : Data.categorias) {
+            if (id.equals(categoria.getId())){
+                categoriaEncontrada = categoria;
+            }
+        }
+        return categoriaEncontrada;
     }
 
     public static void editar(Long id) {
-
+        
     }
 
-    public static void eliminar(Long id) {
-
+    public static String eliminar(Long id) {
+        Categoria categoriaEncontrada = buscarPorId(id);
+        if (categoriaEncontrada != null) {
+            categoriaEncontrada.setEliminado(true);
+            return "Categoria eliminada correctamente";
+        } else {
+            return "No existe categoria con id " + id;
+        }
     }
 }
