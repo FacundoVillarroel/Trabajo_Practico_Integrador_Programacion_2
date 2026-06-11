@@ -1,1 +1,10 @@
-/build/
+# Archivos y carpetas de configuración local de NetBeans
+nbproject/private/
+build/
+dist/
+nbdist/
+.nb-gradle/
+
+# Archivos del sistema operativo
+Thumbs.db
+.DS_Store
