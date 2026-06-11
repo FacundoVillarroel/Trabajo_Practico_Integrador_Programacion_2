@@ -41,7 +41,12 @@ public class MenuCategoria {
                     String nombre = input.nextLine();
                     System.out.print("Ingrese la descripción: ");
                     String descripcion = input.nextLine();
-                    CategoriaService.crear(nombre, descripcion);
+                    try {
+                        CategoriaService.crear(nombre, descripcion);
+                        System.out.println("Categoria creada correctamente");
+                    } catch(IllegalArgumentException error) {
+                        System.out.println(error.getMessage()); //Imprimo el mensaje de error creado en la clase Categoria
+                    }    
                     break;
 
                 case "3":
@@ -51,10 +56,22 @@ public class MenuCategoria {
                 case "4":
                     System.out.println("");
                     System.out.println(CategoriaService.listar()); 
-                    System.out.print("Ingrese Id de Categoria a eliminar: ");
-                    Long id = Long.valueOf(input.nextLine());  //Falta manejo de errores
-                    System.out.println(CategoriaService.eliminar(id));
-                    System.out.println("Eliminar categoría");
+                    
+                    Long id = null;
+                    try {
+                        System.out.print("Ingrese Id de Categoria a eliminar: ");
+                        id = Long.valueOf(input.nextLine());  
+                    } catch (NumberFormatException error){
+                        System.out.println("Error: Debe ingresar un número id válido");
+                        break; //Si se ingresó un string que no puede ser convertido a Long termino el case
+                    }
+                    
+                    Boolean fueEliminada = CategoriaService.eliminar(id);  //Según la respuesta del service muestro un mensaje u otro.
+                    if (fueEliminada) {
+                        System.out.println("Categoria eliminada correctamente");
+                    } else {
+                        System.out.println("No existe categoria con id " + id);
+                    }
                     break;
 
                 case "0":

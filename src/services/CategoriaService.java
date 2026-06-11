@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaService {
-    public static void crear(String nombre, String descripcion) {
-        Categoria categoria = new Categoria(nombre, descripcion);
-        Data.categorias.add(categoria);
+    public static Categoria crear(String nombre, String descripcion) {
+            Categoria categoria = new Categoria(nombre, descripcion);
+            Data.categorias.add(categoria);
+            return categoria;
     }
 
     public static List<Categoria> listar() {
@@ -18,7 +19,7 @@ public class CategoriaService {
         return categoriasFiltradas;
     }
 
-    public static Categoria buscarPorId(Long id) {
+    private static Categoria buscarPorId(Long id) {
         Categoria categoriaEncontrada = null;
         for (Categoria categoria : Data.categorias) {
             if (id.equals(categoria.getId())){
@@ -32,13 +33,11 @@ public class CategoriaService {
         
     }
 
-    public static String eliminar(Long id) {
-        Categoria categoriaEncontrada = buscarPorId(id);
-        if (categoriaEncontrada != null) {
-            categoriaEncontrada.setEliminado(true);
-            return "Categoria eliminada correctamente";
-        } else {
-            return "No existe categoria con id " + id;
-        }
+    public static Boolean eliminar(Long id) { //Retorna true si se eliminó categoria o false si no se eliminó
+        Categoria categoria = buscarPorId(id);
+        if (categoria == null) return false;
+
+        categoria.setEliminado(true);
+        return true;
     }
 }
