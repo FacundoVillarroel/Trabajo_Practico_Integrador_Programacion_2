@@ -12,7 +12,12 @@ public abstract class Base {
     private boolean eliminado;
     private LocalDateTime createdAt;
     
-    // Constructor
+    // Constructores
+    public Base() {
+        this.createdAt = LocalDateTime.now();
+        this.eliminado = false;
+    }
+    
     public Base (Long id) {
         this.id = id;
         this.createdAt = LocalDateTime.now();
@@ -35,6 +40,10 @@ public abstract class Base {
     // Setters
     public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
