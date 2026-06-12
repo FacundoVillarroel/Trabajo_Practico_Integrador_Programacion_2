@@ -46,8 +46,9 @@ public class CategoriaService {
     }
     
     private static Categoria buscarPorId(Long id) {
+        List<Categoria> categoriasFiltradas = listar();
         Categoria categoriaEncontrada = null;
-        for (Categoria categoria : Data.categorias) {
+        for (Categoria categoria : categoriasFiltradas) {
             if (id.equals(categoria.getId())){
                 categoriaEncontrada = categoria;
             }
@@ -56,7 +57,8 @@ public class CategoriaService {
     }
     
     private static void validarNombreDuplicado (String nombre){
-        for (Categoria cat : Data.categorias) { //Recorro la lista de categorias creadas, si hay una con el mismo nombre lanzo error
+        List<Categoria> categoriasFiltradas = listar();
+        for (Categoria cat : categoriasFiltradas) { //Recorro la lista de categorias creadas, si hay una con el mismo nombre lanzo error
             if (nombre.equalsIgnoreCase(cat.getNombre())){
                 throw new EntidadDuplicadaException("Ya existe una categoria con el nombre '" + nombre + "'");
             }

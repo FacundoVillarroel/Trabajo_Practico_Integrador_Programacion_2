@@ -78,13 +78,20 @@ public class MenuCategoria {
                     if(id == null) {
                         break;
                     }
-                    
-                    Boolean fueEliminada = CategoriaService.eliminar(id);  //Según la respuesta del service muestro un mensaje u otro.
-                    if (fueEliminada) {
-                        System.out.println("Categoria eliminada correctamente");
+                    //pido confirmación
+                    System.out.print("Está seguro desea eliminar esta categoría S/N: ");
+                    String confirmacion = input.nextLine();
+                    if(confirmacion.equalsIgnoreCase("S")){
+                        Boolean fueEliminada = CategoriaService.eliminar(id);  //Según la respuesta del service muestro un mensaje u otro.
+                        if (fueEliminada) {
+                            System.out.println("Categoria eliminada correctamente");
+                        } else {
+                            System.out.println("No existe categoria con id " + id);
+                        }
                     } else {
-                        System.out.println("No existe categoria con id " + id);
+                        System.out.println("Operación cancelada");
                     }
+                    
                     break;
                 }
                 case "0":{
