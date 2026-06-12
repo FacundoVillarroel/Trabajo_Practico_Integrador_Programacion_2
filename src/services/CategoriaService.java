@@ -4,16 +4,13 @@ package services;
 import entities.Categoria;
 import data.Data;
 import exceptions.EntidadDuplicadaException;
+import exceptions.EntidadNoEncontradaException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaService {
     public static Categoria crear(String nombre, String descripcion) {
-        for (Categoria cat : Data.categorias) { //Recorro la lista de categorias creadas, si hay una con el mismo nombre lanzo error
-            if (nombre.equalsIgnoreCase(cat.getNombre())){
-                throw new EntidadDuplicadaException("Ya existe una categoria con el nombre '" + nombre + "'");
-            }
-        }
+        validarNombreDuplicado(nombre);
         
         Categoria categoria = new Categoria(nombre, descripcion);
         Data.categorias.add(categoria);
@@ -26,6 +23,28 @@ public class CategoriaService {
         return categoriasFiltradas;
     }
 
+    public static void editar(Long id, String nombre, String descripcion) {
+        Categoria categoriaAEditar = buscarPorId(id);
+        if (categoriaAEditar == null){
+            throw new EntidadNoEncontradaException("Categoria inexistente");
+        }//Solo si el nombre no está vacío ni es igual al anteriór lo editamos
+        if(!nombre.isBlank() && !nombre.equalsIgnoreCase(categoriaAEditar.getNombre())) {
+            validarNombreDuplicado(nombre); //Antes de editarlo validamos que no sea igual al nombre de otra categoria.
+            categoriaAEditar.setNombre(nombre);
+        }
+        if(!descripcion.isBlank()){ //Si la descripcion no está vacía se actualiza
+            categoriaAEditar.setDescripcion(descripcion);
+        }
+    }
+
+    public static Boolean eliminar(Long id) { //Retorna true si se eliminó categoria o false si no se eliminó
+        Categoria categoria = buscarPorId(id);
+        if (categoria == null) return false;
+
+        categoria.setEliminado(true);
+        return true;
+    }
+    
     private static Categoria buscarPorId(Long id) {
         Categoria categoriaEncontrada = null;
         for (Categoria categoria : Data.categorias) {
@@ -35,16 +54,12 @@ public class CategoriaService {
         }
         return categoriaEncontrada;
     }
-
-    public static void editar(Long id) {
-        
-    }
-
-    public static Boolean eliminar(Long id) { //Retorna true si se eliminó categoria o false si no se eliminó
-        Categoria categoria = buscarPorId(id);
-        if (categoria == null) return false;
-
-        categoria.setEliminado(true);
-        return true;
+    
+    private static void validarNombreDuplicado (String nombre){
+        for (Categoria cat : Data.categorias) { //Recorro la lista de categorias creadas, si hay una con el mismo nombre lanzo error
+            if (nombre.equalsIgnoreCase(cat.getNombre())){
+                throw new EntidadDuplicadaException("Ya existe una categoria con el nombre '" + nombre + "'");
+            }
+        }
     }
 }
