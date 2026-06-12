@@ -8,7 +8,6 @@ public class Main {
 
     public static void main(String[] args) {
         String opcion;
-        String opcionSubMenu;
 
         Scanner input= new Scanner(System.in);
         
