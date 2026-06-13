@@ -85,7 +85,7 @@ public class Producto extends Base {
     @Override
     public String toString() {
         return String.format(
-                "PRODUCTO ID %d: %s | Precio: $%.2f | Stock: %d | Categoría: %s",
+                "ID %d: | Nombre: %s | Precio: $%.2f | Stock: %d | Categoría: %s",
                 getId(), nombre, precio, stock, categoria.getNombre()
         );
     }  

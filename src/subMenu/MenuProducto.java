@@ -150,13 +150,19 @@ public class MenuProducto {
             }
         } while (!opcion.equals("0"));
     }
-
+    
     private static void mostrarProductos() {
+        // Lista de productos no eliminados
         List<Producto> productos = ProductoService.listar();
         if (productos.isEmpty()) {
             System.out.println("No hay productos cargados");
         } else {
-            System.out.println(productos);
+            System.out.println("\n-----------------------------------------------------------------");
+            // Se recorre la lista para imprimir en consola 1 producto por fila
+            for (Producto productoInd : productos) {
+                System.out.println(productoInd);
+            }
+            System.out.println("-----------------------------------------------------------------\n");
         }
     }
 
