@@ -111,7 +111,9 @@ public class MenuCategoria {
         if (categorias.isEmpty()) {
             System.out.println("No hay categorías cargadas");
         } else {
-            System.out.println(categorias);
+            for (Categoria categoria : categorias) {
+                System.out.println(categoria);
+            }
         }
     }
     

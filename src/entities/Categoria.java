@@ -72,13 +72,16 @@ public class Categoria extends Base{
             throw new IllegalArgumentException("Este producto ya existe en esta categoría");
         }
         productos.add(producto);
-        // producto.setCategoria(this);  Cuando se desarrolle la clase producto, se descomenta esa linea.
+        producto.setCategoria(this);  
     }
     
     // toString
     @Override
     public String toString() {
-        return "Categoria{" + "id=" + getId() + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
+        return String.format(
+                "CATEGORIA ID %d: %s | Descripcion: %s",
+                getId(), nombre, descripcion);
     }
+    
     
 }
