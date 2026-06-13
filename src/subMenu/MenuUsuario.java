@@ -49,8 +49,16 @@ public class MenuUsuario {
                         
                         System.out.print("Seleccione Rol (1. ADMIN, 2. USUARIO): ");
                         String rolOp = input.nextLine();
-                        Rol rol = rolOp.equals("1") ? Rol.ADMIN : Rol.USUARIO;
-
+                        
+                        Rol rol;
+                        if (rolOp.equals("1")) {
+                            rol = Rol.ADMIN;
+                        } else if (rolOp.equals("2")) {
+                            rol = Rol.USUARIO;
+                        } else {
+                            throw new IllegalArgumentException("Error: Opción de rol inválida. Debe elegir 1 o 2.");
+                        }
+                        
                         Usuario nuevo = UsuarioService.crear(nombre, apellido, mail, celular, contrasenia, rol);
                         System.out.println("Usuario creado correctamente con id: " + nuevo.getId());
                     } catch (EntidadDuplicadaException | IllegalArgumentException error) {
@@ -77,8 +85,20 @@ public class MenuUsuario {
                         
                         System.out.print("Nuevo Rol (1. ADMIN, 2. USUARIO, Enter para mantener el actual): ");
                         String rolOp = input.nextLine();
-                        Rol rol = rolOp.isBlank() ? null : (rolOp.equals("1") ? Rol.ADMIN : Rol.USUARIO);
 
+                        Rol rol;
+                        if (rolOp.trim().isEmpty()) {
+                            rol = null; // Mantiene el actual
+                        } else {
+                            if (rolOp.equals("1")) {
+                                rol = Rol.ADMIN;
+                            } else if (rolOp.equals("2")) {
+                                rol = Rol.USUARIO;
+                            } else {
+                                throw new IllegalArgumentException("Error: Opción de rol inválida. Debe elegir 1 o 2.");
+                            }
+                        }
+                        
                         UsuarioService.editar(id, nombre, apellido, mail, celular, contrasenia, rol);
                         System.out.println("Usuario editado correctamente");
                     } catch (EntidadDuplicadaException | EntidadNoEncontradaException error) {
