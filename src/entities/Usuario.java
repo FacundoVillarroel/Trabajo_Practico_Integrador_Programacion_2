@@ -17,9 +17,9 @@ public class Usuario extends Base {
     private Rol rol; 
     private List<Pedido> pedidos; 
     
-    // Constructor adaptado (El ID se maneja por herencia de Base de forma dinámica)
+    // Constructor
     public Usuario(String nombre, String apellido, String mail, String celular, String contrasenia, Rol rol) {
-        super(); // Llama al constructor de Base que inicializa el id y la fecha [cite: 223]
+        super(); // Llama al constructor de Base
         this.nombre = nombre;
         this.apellido = apellido;
         this.mail = mail;
@@ -29,7 +29,7 @@ public class Usuario extends Base {
         this.pedidos = new ArrayList<>();
     }
     
-    // Métodos - Getters y Setters [cite: 146]
+    // Métodos - Getters y Setters 
     public String getNombre() {
         return nombre;
     }
@@ -86,14 +86,13 @@ public class Usuario extends Base {
         this.pedidos = pedidos;
     }
     
-    // Relación 1...n con Pedido requerida por el UML [cite: 147, 150]
+    // Relación 1...n con Pedido
     public void agregarPedido(Pedido pedido) {
         if (pedido != null) {
             pedidos.add(pedido);
         }
     }
-
-    // El toString que respeta exactamente el reporte pedido por consola 
+ 
     @Override
     public String toString() {
         return String.format(

@@ -1,6 +1,7 @@
 
 import java.util.Scanner;
 import subMenu.MenuCategoria;
+import subMenu.MenuUsuario;
 
  //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
@@ -32,6 +33,7 @@ public class Main {
                     break;
                     
                 case "3": //Usuarios
+                    MenuUsuario.mostrar(input);
                     break;
                     
                 case "4": //Pedidos
