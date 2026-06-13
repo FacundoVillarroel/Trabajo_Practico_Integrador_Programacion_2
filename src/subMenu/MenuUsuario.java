@@ -3,6 +3,7 @@ package subMenu;
 
 import entities.Usuario;
 import enums.Rol;
+import exceptions.AtributoInvalidoException;
 import exceptions.EntidadDuplicadaException;
 import exceptions.EntidadNoEncontradaException;
 import java.util.List;
@@ -56,12 +57,12 @@ public class MenuUsuario {
                         } else if (rolOp.equals("2")) {
                             rol = Rol.USUARIO;
                         } else {
-                            throw new IllegalArgumentException("Error: Opción de rol inválida. Debe elegir 1 o 2.");
+                            throw new AtributoInvalidoException("Error: Opción de rol inválida. Debe elegir 1 o 2.");
                         }
                         
                         Usuario nuevo = UsuarioService.crear(nombre, apellido, mail, celular, contrasenia, rol);
                         System.out.println("Usuario creado correctamente con id: " + nuevo.getId());
-                    } catch (EntidadDuplicadaException | IllegalArgumentException error) {
+                    } catch (EntidadDuplicadaException | AtributoInvalidoException error) {
                         System.out.println(error.getMessage());
                     }
                     break;
@@ -95,13 +96,13 @@ public class MenuUsuario {
                             } else if (rolOp.equals("2")) {
                                 rol = Rol.USUARIO;
                             } else {
-                                throw new IllegalArgumentException("Error: Opción de rol inválida. Debe elegir 1 o 2.");
+                                throw new AtributoInvalidoException("Error: Opción de rol inválida. Debe elegir 1 o 2.");
                             }
                         }
                         
                         UsuarioService.editar(id, nombre, apellido, mail, celular, contrasenia, rol);
                         System.out.println("Usuario editado correctamente");
-                    } catch (EntidadDuplicadaException | EntidadNoEncontradaException error) {
+                    } catch (EntidadDuplicadaException | EntidadNoEncontradaException | AtributoInvalidoException error) {
                         System.out.println(error.getMessage());
                     }
                     break;
