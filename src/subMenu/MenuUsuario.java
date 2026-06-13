@@ -73,6 +73,9 @@ public class MenuUsuario {
                     if (id == null) break;
 
                     try {
+                        // Validar que exista el ID antes de pedir los datos
+                        UsuarioService.editar(id, null, null, null, null, null, null);
+                        
                         System.out.print("Nuevo Nombre (Enter para mantener el actual): ");
                         String nombre = input.nextLine();
                         System.out.print("Nuevo Apellido (Enter para mantener el actual): ");
