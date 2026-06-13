@@ -96,8 +96,8 @@ public class Usuario extends Base {
     @Override
     public String toString() {
         return String.format(
-                "USUARIO: %s %s | Mail: %s | Rol: %s",
-                nombre, apellido, mail, rol
+                "ID: %d | Nombre: %s | Apellido: %s | Mail: %s | Rol: %s",
+                getId(), nombre, apellido, mail, rol
         );
     }  
 }

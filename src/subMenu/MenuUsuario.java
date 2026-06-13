@@ -119,13 +119,17 @@ public class MenuUsuario {
     }
 
     private static void mostrarUsuarios() {
+        // Lista de usuarios activos
         List<Usuario> usuarios = UsuarioService.listar();
-
         if (usuarios.isEmpty()) {
             System.out.println("No hay usuarios cargados");
         } else {
-            // Imprime la lista.
-            System.out.println(usuarios);
+            System.out.println("\n-----------------------------------------------------------------");
+            // Se recorre la lista para imprimir en consola 1 usuario por fila
+            for (Usuario usuarioInd : usuarios) {
+                System.out.println(usuarioInd);
+            }
+            System.out.println("-----------------------------------------------------------------\n");
         }
     }
 
