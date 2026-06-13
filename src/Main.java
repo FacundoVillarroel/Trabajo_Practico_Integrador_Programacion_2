@@ -1,9 +1,10 @@
 
 import java.util.Scanner;
 import subMenu.MenuCategoria;
+import subMenu.MenuProducto;
 import subMenu.MenuUsuario;
 
- //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class Main {
 
@@ -30,6 +31,7 @@ public class Main {
                     break;
                     
                 case "2": //Productos
+                    MenuProducto.mostrar(input);
                     break;
                     
                 case "3": //Usuarios
