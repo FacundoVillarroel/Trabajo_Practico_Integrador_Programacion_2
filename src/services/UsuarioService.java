@@ -87,7 +87,7 @@ public class UsuarioService {
             }
         }
     }
-
+    
     private static Long generarSiguienteId() {
         long maxId = 0L;
         for (Usuario usr : Data.usuarios) {
