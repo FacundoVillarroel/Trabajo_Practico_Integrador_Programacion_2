@@ -50,8 +50,10 @@ public class MenuCategoria {
                 }
                 case "3": {//Editar
                     mostrarCategorias();
-                    
-                    Long id = solicitarId(input);
+                    Long id = null;
+                    do {
+                        id = solicitarId(input);
+                    } while (id == null);
                     
                     System.out.println("Nuevo nombre(Enter para mantener el actual)");
                     String nombre = input.nextLine();
