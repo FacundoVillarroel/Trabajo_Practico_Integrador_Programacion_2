@@ -65,6 +65,12 @@ public class MenuProducto {
                     break;
                 }
                 case "3": {
+                    // Validacion de existencia de productos
+                    if (ProductoService.listar().isEmpty()) {
+                        System.out.println("No hay productos cargados para editar.");
+                        break;
+                    }
+                    
                     mostrarProductos();
                     Long id = solicitarId(input);
                     if (id == null) {
@@ -72,6 +78,9 @@ public class MenuProducto {
                     }
 
                     try {
+                        // Validar que exista el ID antes de pedir los datos
+                        ProductoService.editar(id, null, null, null, null, null, null, null);
+                        
                         System.out.print("Nuevo nombre (Enter para mantener el actual): ");
                         String nombre = input.nextLine();
                         System.out.print("Nueva descripción (Enter para mantener la actual): ");
@@ -128,6 +137,12 @@ public class MenuProducto {
                     break;
                 }
                 case "4": {
+                    // Validacion de existencia de productos
+                    if (ProductoService.listar().isEmpty()) {
+                        System.out.println("No hay productos cargados para eliminar.");
+                        break;
+                    }
+   
                     System.out.println("");
                     mostrarProductos();
                     Long id = solicitarId(input);
