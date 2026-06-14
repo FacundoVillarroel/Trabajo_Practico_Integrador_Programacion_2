@@ -4,6 +4,7 @@ package services;
 import entities.Usuario;
 import enums.Rol;
 import data.Data;
+import exceptions.AtributoInvalidoException;
 import exceptions.EntidadDuplicadaException;
 import exceptions.EntidadNoEncontradaException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class UsuarioService {
     public static Usuario crear(String nombre, String apellido, String mail, String celular, String contrasenia, Rol rol) {
         // Uso de validaciones
         if (Validaciones.esTextoVacio(nombre) || Validaciones.esTextoVacio(mail)) {
-            throw new IllegalArgumentException("Error: El nombre y el mail son obligatorios.");
+            throw new AtributoInvalidoException("Error: El nombre y el mail son obligatorios.");
         }
 
         validarMailDuplicado(mail);
