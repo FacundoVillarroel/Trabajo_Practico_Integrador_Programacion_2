@@ -68,6 +68,12 @@ public class MenuUsuario {
                     break;
                 }
                 case "3": { // Editar
+                    // Validacion de existencia de usuarios
+                    if (UsuarioService.listar().isEmpty()) {
+                        System.out.println("No hay usuarios cargados para editar.");
+                        break;
+                    }
+                    
                     mostrarUsuarios();
                     Long id = solicitarId(input);
                     if (id == null) break;
@@ -111,6 +117,12 @@ public class MenuUsuario {
                     break;
                 }
                 case "4": { // Eliminar
+                    // Validacion de existencia de usuarios
+                    if (UsuarioService.listar().isEmpty()) {
+                        System.out.println("No hay usuarios cargados para eliminar.");
+                        break;
+                    }
+                    
                     System.out.println("");
                     mostrarUsuarios();
                     
