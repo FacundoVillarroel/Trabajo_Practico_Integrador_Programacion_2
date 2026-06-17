@@ -37,12 +37,15 @@ public class CategoriaService {
         }
     }
 
-    public static Boolean eliminar(Long id) { //Retorna true si se eliminó categoria o false si no se eliminó
+    public static void eliminar(Long id) { 
         Categoria categoria = buscarPorId(id);
-        if (categoria == null) return false;
-
+        if (categoria == null) {
+            throw new EntidadNoEncontradaException("No existe categoria con id: " + id);
+        }
+        if (!categoria.getProductos().isEmpty()){ //Si tiene productos asignados a su categoria entonces lanza error.
+            throw new RuntimeException("Error: Esta categoría tiene productos asignados, se deben desvincular antes de eliminar la categoría");
+        }
         categoria.setEliminado(true);
-        return true;
     }
     
     private static Categoria buscarPorId(Long id) {

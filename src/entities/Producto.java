@@ -23,6 +23,7 @@ public class Producto extends Base {
         this.imagen = imagen;
         this.disponible = disponible;
         this.categoria = categoria;
+        categoria.agregarProducto(this);
     }
 
     // Metodos - Getters y Setters
@@ -79,7 +80,19 @@ public class Producto extends Base {
     }
 
     public void setCategoria(Categoria categoria) {
+        if (this.categoria == categoria){ //Si la categoria es la misma no se modifica nada
+            return;
+        }
+        
+        if (this.categoria != null) { //Si ya tenía una categoria asignada se remueve este producto de esa categoria
+            this.categoria.getProductos().remove(this);
+        }
+        
         this.categoria = categoria;
+
+        if (categoria != null && !categoria.getProductos().contains(this)) { 
+            categoria.agregarProducto(this);
+        }
     }
 
     @Override

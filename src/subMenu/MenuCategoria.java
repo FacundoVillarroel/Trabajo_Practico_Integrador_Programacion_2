@@ -49,7 +49,12 @@ public class MenuCategoria {
                     break;
                 }
                 case "3": {//Editar
-                    mostrarCategorias();
+                    boolean hayCategorias = mostrarCategorias(); 
+                    if (!hayCategorias){
+                        break;
+                    }
+                    
+                    //Solicito el id con la función auxiliar.
                     Long id = null;
                     do {
                         id = solicitarId(input);
@@ -73,9 +78,11 @@ public class MenuCategoria {
                 }
                 case "4":{ //Eliminar
                     System.out.println("");
-                    mostrarCategorias(); 
+                    boolean hayCategorias = mostrarCategorias(); 
+                    if (!hayCategorias){
+                        break;
+                    }
                     
-                    //Solicito el id con la función auxiliar.
                     Long id = solicitarId(input);
                     if(id == null) {
                         break;
@@ -84,12 +91,14 @@ public class MenuCategoria {
                     System.out.print("Está seguro desea eliminar esta categoría S/N: ");
                     String confirmacion = input.nextLine();
                     if(confirmacion.equalsIgnoreCase("S")){
-                        Boolean fueEliminada = CategoriaService.eliminar(id);  //Según la respuesta del service muestro un mensaje u otro.
-                        if (fueEliminada) {
+                        try{
+                            CategoriaService.eliminar(id);
                             System.out.println("Categoria eliminada correctamente");
-                        } else {
-                            System.out.println("No existe categoria con id " + id);
-                        }
+                        } catch (EntidadNoEncontradaException error){
+                            System.out.println(error.getMessage());
+                        } catch (RuntimeException error){
+                            System.out.println(error.getMessage());
+                        } 
                     } else {
                         System.out.println("Operación cancelada");
                     }
@@ -107,15 +116,17 @@ public class MenuCategoria {
         } while (!opcion.equals("0"));
     }
     
-    private static void mostrarCategorias() {
+    private static boolean mostrarCategorias() {
         List<Categoria> categorias = CategoriaService.listar();
 
         if (categorias.isEmpty()) {
             System.out.println("No hay categorías cargadas");
+            return false;
         } else {
             for (Categoria categoria : categorias) {
                 System.out.println(categoria);
             }
+            return true;
         }
     }
     

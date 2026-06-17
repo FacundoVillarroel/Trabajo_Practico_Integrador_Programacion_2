@@ -3,6 +3,7 @@ package entities;
 
 //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
+import exceptions.EntidadDuplicadaException;
 import java.util.ArrayList;
 import java.util.List;
 import utils.Validaciones;
@@ -69,18 +70,20 @@ public class Categoria extends Base{
             throw new IllegalArgumentException("No se puede agregar un producto nulo");
         }
         if(productos.contains(producto)) {
-            throw new IllegalArgumentException("Este producto ya existe en esta categoría");
+            throw new EntidadDuplicadaException("Este producto ya existe en esta categoría");
         }
         productos.add(producto);
-        producto.setCategoria(this);  
+        if (producto.getCategoria() != this){
+            producto.setCategoria(this);
+        }
     }
     
     // toString
     @Override
     public String toString() {
         return String.format(
-                "CATEGORIA ID %d: %s | Descripcion: %s",
-                getId(), nombre, descripcion);
+                "CATEGORIA ID %d: %s | Descripcion: %s | Cantidad de productos asociados: %d",
+                getId(), nombre, descripcion, productos.size());
     }
     
     
