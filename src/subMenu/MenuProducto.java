@@ -4,6 +4,7 @@ import entities.Producto;
 import java.util.List;
 import java.util.Scanner;
 import services.ProductoService;
+import utils.Validaciones;
 
 //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
@@ -72,7 +73,7 @@ public class MenuProducto {
                     }
                     
                     mostrarProductos();
-                    Long id = solicitarId(input);
+                    Long id = Validaciones.solicitarId(input);
                     if (id == null) {
                         break;
                     }
@@ -145,7 +146,7 @@ public class MenuProducto {
    
                     System.out.println("");
                     mostrarProductos();
-                    Long id = solicitarId(input);
+                    Long id = Validaciones.solicitarId(input);
                     if (id == null) {
                         break;
                     }
@@ -178,16 +179,6 @@ public class MenuProducto {
                 System.out.println(productoInd);
             }
             System.out.println("-----------------------------------------------------------------\n");
-        }
-    }
-
-    private static Long solicitarId(Scanner input) {
-        try {
-            System.out.print("Ingrese Id: ");
-            return Long.valueOf(input.nextLine());
-        } catch (NumberFormatException error) {
-            System.out.println("Error: Debe ingresar un número id válido");
-            return null;
         }
     }
 }

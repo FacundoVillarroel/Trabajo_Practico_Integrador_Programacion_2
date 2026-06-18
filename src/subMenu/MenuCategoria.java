@@ -8,6 +8,7 @@ import exceptions.EntidadNoEncontradaException;
 import java.util.List;
 import java.util.Scanner;
 import services.CategoriaService;
+import utils.Validaciones;
 
 
 public class MenuCategoria {
@@ -57,7 +58,7 @@ public class MenuCategoria {
                     //Solicito el id con la función auxiliar.
                     Long id = null;
                     do {
-                        id = solicitarId(input);
+                        id = Validaciones.solicitarId(input);
                     } while (id == null);
                     
                     System.out.println("Nuevo nombre(Enter para mantener el actual)");
@@ -83,7 +84,7 @@ public class MenuCategoria {
                         break;
                     }
                     
-                    Long id = solicitarId(input);
+                    Long id = Validaciones.solicitarId(input);
                     if(id == null) {
                         break;
                     }
@@ -129,14 +130,4 @@ public class MenuCategoria {
             return true;
         }
     }
-    
-    private static Long solicitarId(Scanner input) { //Solicita un id como tipo de dato Long, en caso que sea inválido retorna null
-        try {
-            System.out.print("Ingrese Id: ");
-            return Long.valueOf(input.nextLine());
-        } catch (NumberFormatException error) {
-            System.out.println("Error: Debe ingresar un número id válido");
-            return null;
-        }
-    }   
 }
