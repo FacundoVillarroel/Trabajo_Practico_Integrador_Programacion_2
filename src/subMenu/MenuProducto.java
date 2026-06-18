@@ -25,11 +25,11 @@ public class MenuProducto {
             opcion = input.nextLine();
 
             switch (opcion) {
-                case "1": {
+                case "1": { // Listar
                     mostrarProductos();
                     break;
                 }
-                case "2": {
+                case "2": { // Crear
                     try {
                         System.out.print("Ingrese Nombre del Producto: ");
                         String nombre = input.nextLine();
@@ -64,7 +64,7 @@ public class MenuProducto {
                     }
                     break;
                 }
-                case "3": {
+                case "3": { // Editar
                     // Validacion de existencia de productos
                     if (ProductoService.listar().isEmpty()) {
                         System.out.println("No hay productos cargados para editar.");
@@ -136,7 +136,7 @@ public class MenuProducto {
                     }
                     break;
                 }
-                case "4": {
+                case "4": { // Eliminar 
                     // Validacion de existencia de productos
                     if (ProductoService.listar().isEmpty()) {
                         System.out.println("No hay productos cargados para eliminar.");
@@ -163,7 +163,7 @@ public class MenuProducto {
                     break;
                 }
             }
-        } while (!opcion.equals("0"));
+        } while (!opcion.equals("0")); // Volver al menú principal
     }
     
     private static void mostrarProductos() {
