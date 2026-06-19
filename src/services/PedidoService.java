@@ -22,7 +22,7 @@ public class PedidoService {
         List<Pedido> pedidosNoEliminados = new ArrayList<>(); //Creo Lista vacia
         
         for (Pedido pedido : pedidos) { //Recorro la lista de pedidos
-            if (pedido.getEliminado() == false) {
+            if (!pedido.getEliminado()) {
                 pedidosNoEliminados.add(pedido); //Agrego aquellos que no han sido eliminados
             }
         }

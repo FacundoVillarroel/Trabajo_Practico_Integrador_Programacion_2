@@ -37,7 +37,12 @@ public class Pedido extends Base implements Calculable {
     }
     
     public Pedido(Usuario usuario){
+        super();
         this.fecha = LocalDate.now();
+        this.estado = Estado.PENDIENTE;
+        this.total = 0;
+        this.formaPago = FormaPago.EFECTIVO;
+        this.detallePedidos = new ArrayList<>();
         this.usuario = usuario;
     }
     

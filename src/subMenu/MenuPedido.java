@@ -173,6 +173,7 @@ public class MenuPedido {
                                 } catch (AtributoInvalidoException aie) {
                                     System.out.println("Error al actualizar pedido: " + aie.getMessage());
                                 }
+                                break;
                                                                 
                             }
                             case "2": {
@@ -185,22 +186,23 @@ public class MenuPedido {
                                         3. Efectivo
                                                                                    
                                     Seleccione una forma de pago: """);
-                                String nuevoEstado = input.nextLine();
+                                String nuevaFormaPago = input.nextLine();
                                 
                                 try {
-                                    if (nuevoEstado.equals("1")) {
+                                    if (nuevaFormaPago.equals("1")) {
                                         PedidoService.actualizar(pedidoAActualizar, pedidoAActualizar.getEstado(), FormaPago.TARJETA);
                                     }
-                                    if (nuevoEstado.equals("2")) {
+                                    if (nuevaFormaPago.equals("2")) {
                                         PedidoService.actualizar(pedidoAActualizar, pedidoAActualizar.getEstado(), FormaPago.TRANSFERENCIA);
                                     }
-                                    if (nuevoEstado.equals("3")) {
+                                    if (nuevaFormaPago.equals("3")) {
                                         PedidoService.actualizar(pedidoAActualizar, pedidoAActualizar.getEstado(), FormaPago.EFECTIVO);
                                     }
                                     
                                 } catch (AtributoInvalidoException aie) {
                                     System.out.println("Error al actualizar pedido: " + aie.getMessage());
                                 }
+                                break;
                             }
                             default: {
                                 System.out.println("Opción inválida.\n");
