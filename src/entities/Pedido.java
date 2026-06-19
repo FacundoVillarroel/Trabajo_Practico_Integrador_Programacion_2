@@ -22,16 +22,23 @@ public class Pedido extends Base implements Calculable {
     private double total;
     private FormaPago formaPago;
     private ArrayList<DetallePedido> detallePedidos;
+    private Usuario usuario; 
     
     //-----Constructor-----
-    public Pedido(LocalDate fecha, Estado estado, double total, FormaPago formaPago) {
+    public Pedido(Estado estado, double total, FormaPago formaPago, Usuario usuario) {
         super(); // super() de Base en primera linea
         this.fecha = LocalDate.now();
         this.estado = estado;
         this.total = total;
         this.formaPago = formaPago;
         this.detallePedidos = new ArrayList<>();//Ver Relacion de composicion (1aN) con DetallePedido
+        this.usuario = usuario; //Regla de negocio: No permitir crear Pedido sin usuario.
        
+    }
+    
+    public Pedido(Usuario usuario){
+        this.fecha = LocalDate.now();
+        this.usuario = usuario;
     }
     
     //-----Getters y setters-----
@@ -66,13 +73,22 @@ public class Pedido extends Base implements Calculable {
     public void setFormaPago(FormaPago formaPago) {
         this.formaPago = formaPago;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    
+
+    public ArrayList<DetallePedido> getDetallePedidos() {
+        return detallePedidos;
+    }
     
     //-----Metodos de comportamiento-----
 
     @Override
     public String toString() {
-        return String.format("ID: %d | Fecha: %s | Estado: %s | Total: $%.2f | Forma de Pago: %s",
-                getId(), fecha, estado, total, formaPago);
+        return String.format("ID Pedido: %d | Usuario: %s | Fecha: %s | Estado: %s | Total: $%.2f | Forma de Pago: %s",
+                getId(), getUsuario().getNombre() + " " + getUsuario().getApellido(), fecha, estado, total, formaPago);
     }
 
     @Override
