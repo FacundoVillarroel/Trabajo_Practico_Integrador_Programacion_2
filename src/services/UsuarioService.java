@@ -87,7 +87,7 @@ public class UsuarioService {
         return true;
     }
 
-    private static Usuario buscarPorId(Long id) {
+    public static Usuario buscarPorId(Long id) {
         List<Usuario> usuariosFiltrados = listar(); // Trae solo activos
         // Se recorre la lista de usuarios filtrados
         for (Usuario usr : usuariosFiltrados) {

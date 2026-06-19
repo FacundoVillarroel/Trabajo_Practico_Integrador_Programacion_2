@@ -8,6 +8,8 @@ import static data.Data.usuarios;
 import entities.Pedido;
 import entities.Producto;
 import entities.Usuario;
+import enums.Estado;
+import enums.FormaPago;
 import exceptions.AtributoInvalidoException;
 import java.util.List;
 import java.util.Scanner;
@@ -40,6 +42,7 @@ public class MenuPedido {
                 case "1": {
                     mostrarPedidos();
                 }
+                
                 case "2": {
                     System.out.println("\nListado de Usuarios Activos: ");
                     List<Usuario> usuariosActivos = UsuarioService.listar(); //Creo la lista de usuarios activos
@@ -51,20 +54,20 @@ public class MenuPedido {
                         System.out.println("\nPara crear un pedido debe ingresar el ID del usuario. ");
                         Long idUsuario = Validaciones.solicitarId(input); //Pido ID
                         
-                        //Usuario u = UsuarioService.buscarPorId(idUsuario); //Metodo privado - Hablar con creador
+                        Usuario u = UsuarioService.buscarPorId(idUsuario);
                         System.out.println("Usuario encontrado!");
                         
                         //Instancio el pedido
-                        //Pedido pedido = new Pedido(u);
+                        Pedido pedido = new Pedido(u);
                         
-                        //Agregar varios detallePedido
+                        //Permito agregar varios detallePedido con do - while
                         String opc = "";
                         
                         try {
                             do {
                                 System.out.println("Ingrese ID del producto: ");
-                                Long idProducto = Long.parseLong(input.nextLine());
-                                //Producto p = ProductoService.buscarPorId(idProducto); //Metodo privado - Hablar con creador
+                                Long idProducto = Long.valueOf(input.nextLine());
+                                Producto p = ProductoService.buscarPorId(idProducto);
                                                         
                                 System.out.println("Ingrese la cantidad: ");
                                 int cant = Integer.parseInt(input.nextLine());
@@ -73,15 +76,15 @@ public class MenuPedido {
                                     throw new AtributoInvalidoException("Error: Debe ser un entero positivo.");
                                 }
                             
-                                /*if (p.getStock() <= 0) {
+                                if (p.getStock() <= 0) {
                                     throw new AtributoInvalidoException("Error: Stock insuficiente.");
-                                }*/
+                                }
                             
                                 //Calculo subtotal
-                                //double subtotal = cant * p.getPrecio();
+                                double subtotal = cant * p.getPrecio();
                             
                                 //Agrego el detallePedido
-                                //pedido.addDetallePedido(cant, subtotal, p);
+                                pedido.addDetallePedido(cant, subtotal, p);
                             
                                 System.out.println("Desea agregar otro producto? (S/N) ");
                                 opc = input.nextLine();
@@ -89,9 +92,9 @@ public class MenuPedido {
                             } while (!opc.equalsIgnoreCase("N"));
                             
                             //Calculo el total y creo el pedido
-                            //pedido.calcularTotal();
-                            //PedidoService.crear(pedido);
-                            //System.out.println("Pedido creado con éxito! Total: $" + pedido.getTotal());
+                            pedido.calcularTotal();
+                            PedidoService.crear(pedido);
+                            System.out.println("Pedido creado con éxito! Total: $" + pedido.getTotal());
                             
                         } catch (AtributoInvalidoException aie) {
                             System.out.println("Error al crear pedido: " + aie.getMessage());
@@ -107,9 +110,91 @@ public class MenuPedido {
                     }
                    
                 }
+                
                 case "3": {
+                    //con un for muestro la lista de pedidos ---> metodo listar()
+                    //solicitarId pedido a actualizar
+                    //Pregunto que desea actualizar (estado/formaPago)
+                    //Llamo a actualizar usando el valor a actualizar y el valor existente del atributo que no se actualiza
+                    
+                    System.out.println("\nListado de pedidos: ");
+                    List<Pedido> pedidosNoElim = PedidoService.listar();
+                    
+                    
+                    if (!pedidosNoElim.isEmpty()) {
+                        //Con un for each recorro la lista de pedidos
+                        for (Pedido pedido : pedidosNoElim) {
+                            System.out.println(pedido);
+                        }
+                        
+                        System.out.println("\nPara actualizar un pedido debe ingresar el ID del pedido. ");
+                        Long idPedido = Validaciones.solicitarId(input); //Pido ID
+                        
+                        //Busco el pedido por ID
+                        Pedido pedidoAActualizar = PedidoService.buscarPedidoPorId(idPedido);
+                    
+                        System.out.println("""
+                                       
+                        Para actualizar:
+                                           
+                            1. Estado del Pedido
+                            2. Forma de Pago
+                                           
+                        Seleccione una opcion: """);
+                        String o = input.nextLine();
+                        
+                        switch (o) {
+                            case "1": {
+                                System.out.println("""
+                                       
+                                    ESTADOS:
+                                           
+                                        1. Pendiente
+                                        2. Confirmado
+                                        3. Terminado
+                                        4. Cancelado
+                                           
+                                    Seleccione un estado: """);
+                                String nuevoEstado = input.nextLine();
+                                
+                                try {
+                                    if (nuevoEstado.equals("1")) {
+                                    PedidoService.actualizar(pedidoAActualizar, Estado.PENDIENTE, pedidoAActualizar.getFormaPago());
+                                    }
+                                    if (nuevoEstado.equals("2")) {
+                                    PedidoService.actualizar(pedidoAActualizar, Estado.CONFIRMADO, pedidoAActualizar.getFormaPago());
+                                    }
+                                    if (nuevoEstado.equals("3")) {
+                                    PedidoService.actualizar(pedidoAActualizar, Estado.TERMINADO, pedidoAActualizar.getFormaPago());
+                                    }
+                                    if (nuevoEstado.equals("4")) {
+                                    PedidoService.actualizar(pedidoAActualizar, Estado.CANCELADO, pedidoAActualizar.getFormaPago());
+                                    }
+                                } catch (AtributoInvalidoException aie) {
+                                    System.out.println("Error al actualizar pedido: " + aie.getMessage());
+                                }
+                                                                
+                            }
+                            case "2": {
+                                
+                            }
+                            default: {
+                                System.out.println("Opción inválida.\n");
+                            }
+                                
+                        }
+                        
+                        
+                    } else {
+                        System.out.println("No existen pedidos cargados.");
+                    }
+                    
+                    
+                    
+                    
                     
                 }
+                
                 case "4": {
                     
                 }
@@ -124,7 +209,7 @@ public class MenuPedido {
     }
     
     private static void mostrarPedidos() {
-        List<Pedido> pedidos = PedidoService.listarPedidos(); //Creo la lista de pedidos
+        List<Pedido> pedidos = PedidoService.listar(); //Creo la lista de pedidos
         
         if (!pedidos.isEmpty()) { //Si no esta vacia
            System.out.println("\n-----------------------------------------------------------------"); 

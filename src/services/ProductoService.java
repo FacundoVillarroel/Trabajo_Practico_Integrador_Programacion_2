@@ -119,7 +119,7 @@ public class ProductoService {
         return true;
     }
 
-    private static Producto buscarPorId(Long id) {
+    public static Producto buscarPorId(Long id) {
         List<Producto> productosFiltrados = listar(); // Trae solo disponibles
         // Se recorre la lista de productos filtrados
         for (Producto prod : productosFiltrados) {
