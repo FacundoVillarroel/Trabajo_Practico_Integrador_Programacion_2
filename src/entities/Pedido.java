@@ -77,11 +77,12 @@ public class Pedido extends Base implements Calculable {
 
     @Override
     public void calcularTotal() {
-        double totalPedido = 0;
+        double suma = 0;
         for (DetallePedido detallePedido : detallePedidos) {
-            //totalPedido += detallePedido.getSubtotal(); Esperar getter de la clase DetallePedido
+            //suma += detallePedido.getSubtotal(); Esperar getter de la clase DetallePedido
         }
-        System.out.println("Total del pedido: $" + totalPedido);
+        this.total = suma;
+        System.out.println("Total del pedido: $" + total);
     }
     
     /**
@@ -102,6 +103,9 @@ public class Pedido extends Base implements Calculable {
         }
         /*detallePedidos.add(new DetallePedido(cantidad, subtotal, producto)); 
         DESCOMENTAR CUANDO ESTE LISTO DETALLEPEDIDO*/
+        
+        //Recalculo el total con el nuevo detallePedido:
+        calcularTotal();
     }
     
     /**
@@ -125,8 +129,13 @@ public class Pedido extends Base implements Calculable {
             throw new EntidadNoEncontradaException("Error: Entidad nula.");
         }
         DetallePedido detPedidoEnc = buscarDetallePorProducto(producto);
-        //detPedidoEnc.setEliminado(true); //Soft delete - DESCOMENTAR CUANDO ESTE LISTO DETALLEPEDIDO
-        System.out.println("Detalle pedido eliminado.");   
+        /*detPedidoEnc.setEliminado(true); //Soft delete - DESCOMENTAR CUANDO ESTE LISTO DETALLEPEDIDO
+        detPedidoEnc.setCantidad(0);
+        detPedidoEnc.setSubtotal(0);*/
+        System.out.println("Detalle pedido eliminado.");
+        
+        //Recalculo el total sin el detallePedido eliminado:
+        calcularTotal();
     }
     
     /**

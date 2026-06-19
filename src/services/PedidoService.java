@@ -1,0 +1,7 @@
+
+package services;
+
+//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+public class PedidoService {
+    
+}
