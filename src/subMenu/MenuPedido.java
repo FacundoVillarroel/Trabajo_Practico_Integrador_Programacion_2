@@ -3,8 +3,6 @@ package subMenu;
 
 //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
-import static data.Data.pedidos;
-import static data.Data.usuarios;
 import entities.Pedido;
 import entities.Producto;
 import entities.Usuario;
@@ -100,7 +98,7 @@ public class MenuPedido {
                             System.out.println("Error al crear pedido: " + aie.getMessage());
                             System.out.println("Pedido cancelado.");
                             
-                        } catch (Exception e) {
+                        } catch (NumberFormatException e) {
                             System.out.println("Error: " + e.getMessage());
                         }
                         
@@ -176,28 +174,74 @@ public class MenuPedido {
                                                                 
                             }
                             case "2": {
+                                System.out.println("""
+                                       
+                                    FORMAS DE PAGO:
+                                           
+                                        1. Tarjeta
+                                        2. Transferencia
+                                        3. Efectivo
+                                                                                   
+                                    Seleccione una forma de pago: """);
+                                String nuevoEstado = input.nextLine();
                                 
+                                try {
+                                    if (nuevoEstado.equals("1")) {
+                                        PedidoService.actualizar(pedidoAActualizar, pedidoAActualizar.getEstado(), FormaPago.TARJETA);
+                                    }
+                                    if (nuevoEstado.equals("2")) {
+                                        PedidoService.actualizar(pedidoAActualizar, pedidoAActualizar.getEstado(), FormaPago.TRANSFERENCIA);
+                                    }
+                                    if (nuevoEstado.equals("3")) {
+                                        PedidoService.actualizar(pedidoAActualizar, pedidoAActualizar.getEstado(), FormaPago.EFECTIVO);
+                                    }
+                                    
+                                } catch (AtributoInvalidoException aie) {
+                                    System.out.println("Error al actualizar pedido: " + aie.getMessage());
+                                }
                             }
                             default: {
                                 System.out.println("Opción inválida.\n");
-                            }
-                                
+                            }      
+                        } 
+                    } else {
+                        System.out.println("No existen pedidos cargados.");
+                    }
+                  
+                }
+                
+                case "4": {
+                    //Pido id para buscar el pedido
+                    //Pregunto si esta seguro que desea eliminar
+                    //llamo a eliminar()
+                    //Muestro confirmacion
+                    
+                    //Listo los pedidos
+                    System.out.println("\nListado de pedidos: ");
+                    List<Pedido> pedidosNoElim = PedidoService.listar();
+                    
+                    if (!pedidosNoElim.isEmpty()) {
+                        //Con un for each recorro la lista de pedidos
+                        for (Pedido pedido : pedidosNoElim) {
+                            System.out.println(pedido);
                         }
                         
-                        
+                        System.out.println("\nPara eliminar un pedido debe ingresar el ID del pedido. ");
+                        Long idPedido = Validaciones.solicitarId(input); //Pido ID
+                                        
+                        System.out.println("¿Está seguro que desea eliminar este pedido? S/N");
+                        String aux = input.nextLine();
+                        if (aux.equalsIgnoreCase("S")) {
+                            PedidoService.eliminar(idPedido);
+                        } else {
+                            System.out.println("Operacion cancelada.");
+                        }
                     } else {
                         System.out.println("No existen pedidos cargados.");
                     }
                     
-                    
-                    
-                    
-                    
                 }
                 
-                case "4": {
-                    
-                }
                 default: {
                     System.out.println("Opción inválida.\n");
                 }

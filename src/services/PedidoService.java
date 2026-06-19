@@ -5,7 +5,6 @@ package services;
 
 import static data.Data.pedidos;
 import entities.Pedido;
-import entities.Producto;
 import enums.Estado;
 import enums.FormaPago;
 import exceptions.AtributoInvalidoException;
@@ -27,9 +26,7 @@ public class PedidoService {
                 pedidosNoEliminados.add(pedido); //Agrego aquellos que no han sido eliminados
             }
         }
-        
         return pedidosNoEliminados;
-        
     }
     
     /**
@@ -52,7 +49,7 @@ public class PedidoService {
     
     /**
      * Actualiza el estado, la forma de pago o ambos del pedido
-     * @param id Long identidicador del pedido
+     * @param pedidoAActualizar Objeto Pedido
      * @param estado Estado nuevo estado del pedido
      * @param formaPago FormaPago nueva forma de pago del pedido
      */
@@ -74,6 +71,24 @@ public class PedidoService {
         //Confirmacion
         System.out.println("\nPedido actualizado correctamente.");
         System.out.println(pedidoAActualizar);
+    }
+    
+    /**
+     * Elimina un pedido
+     * @param id Long Identificador de un pedido
+     */
+    public static void eliminar(Long id) {
+        //Busco el pedido por id
+        Pedido pedidoAEliminar = buscarPedidoPorId(id);
+        
+        //Elimino el pedido (soft delete)
+        pedidoAEliminar.setEliminado(true);
+        
+        //Confimarcion de eliminacion
+        if (pedidoAEliminar.getEliminado()) {
+            System.out.println("Pedido eliminado correctamente.");
+            System.out.println("ID Pedido Eliminado: " + pedidoAEliminar.getId());
+        }
     }
     
     

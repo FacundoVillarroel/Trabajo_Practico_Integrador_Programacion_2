@@ -1,6 +1,7 @@
 
 import java.util.Scanner;
 import subMenu.MenuCategoria;
+import subMenu.MenuPedido;
 import subMenu.MenuProducto;
 import subMenu.MenuUsuario;
 
@@ -39,6 +40,7 @@ public class Main {
                     break;
                     
                 case "4": //Pedidos
+                    MenuPedido.mostrar(input);
                     break;
                     
                 case "0": //Salir
