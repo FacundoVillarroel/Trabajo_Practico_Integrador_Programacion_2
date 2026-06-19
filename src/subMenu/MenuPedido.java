@@ -39,6 +39,7 @@ public class MenuPedido {
             switch (opcion) {
                 case "1": {
                     mostrarPedidos();
+                    break;
                 }
                 
                 case "2": {
@@ -106,6 +107,7 @@ public class MenuPedido {
                     } else {
                         System.out.println("No existen usuarios cargados.");
                     }
+                    break;
                    
                 }
                 
@@ -207,6 +209,7 @@ public class MenuPedido {
                     } else {
                         System.out.println("No existen pedidos cargados.");
                     }
+                    break;
                   
                 }
                 
@@ -239,12 +242,18 @@ public class MenuPedido {
                     } else {
                         System.out.println("No existen pedidos cargados.");
                     }
+                    break;
                     
+                }
+                case "0": {
+                    System.out.println("Volviendo al menú principal...\n");
+                    break;
                 }
                 
                 default: {
                     System.out.println("Opción inválida.\n");
                 }
+                break;
             }
         
         } while (!opcion.equals("0")); 
