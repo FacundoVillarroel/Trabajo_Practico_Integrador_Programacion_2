@@ -100,7 +100,7 @@ public class Pedido extends Base implements Calculable {
     public void calcularTotal() {
         double suma = 0;
         for (DetallePedido detallePedido : detallePedidos) {
-            //suma += detallePedido.getSubtotal(); Esperar getter de la clase DetallePedido
+            suma += detallePedido.getSubtotal(); 
         }
         this.total = suma;
         System.out.println("Total del pedido: $" + total);
@@ -112,18 +112,16 @@ public class Pedido extends Base implements Calculable {
      * @param subtotal double Precio subtotal (cant*precioUnitarioProducto)
      * @param producto Objeto de la clase Producto
      */
-    public void addDetallePedido(int cantidad, double subtotal, Producto producto) {
+    public void addDetallePedido(int cantidad, Producto producto) {
         if (!esCantidadValida(cantidad)) {
             throw new AtributoInvalidoException("Error: Atributo invalido.");
         }  
-        if (!esPrecioValido(subtotal)) {
-            throw new AtributoInvalidoException("Error: Atributo invalido."); //Esta bien dicho atributo?
-        }
+        
         if (producto == null) {
             throw new EntidadNoEncontradaException("Error: Entidad nula.");
         }
-        /*detallePedidos.add(new DetallePedido(cantidad, subtotal, producto)); 
-        DESCOMENTAR CUANDO ESTE LISTO DETALLEPEDIDO*/
+        detallePedidos.add(new DetallePedido(cantidad, producto)); 
+        
         
         //Recalculo el total con el nuevo detallePedido:
         calcularTotal();
@@ -150,9 +148,9 @@ public class Pedido extends Base implements Calculable {
             throw new EntidadNoEncontradaException("Error: Entidad nula.");
         }
         DetallePedido detPedidoEnc = buscarDetallePorProducto(producto);
-        /*detPedidoEnc.setEliminado(true); //Soft delete - DESCOMENTAR CUANDO ESTE LISTO DETALLEPEDIDO
+        detPedidoEnc.setEliminado(true); //Soft delete - DESCOMENTAR CUANDO ESTE LISTO DETALLEPEDIDO
         detPedidoEnc.setCantidad(0);
-        detPedidoEnc.setSubtotal(0);*/
+        detPedidoEnc.setSubtotal(0);
         System.out.println("Detalle pedido eliminado.");
         
         //Recalculo el total sin el detallePedido eliminado:
@@ -166,10 +164,10 @@ public class Pedido extends Base implements Calculable {
      */
     private DetallePedido buscarDetallePorProducto(Producto producto) {
         for (DetallePedido detallePedido : detallePedidos) {
-            /*if (detallePedido.getProducto().getId().equals(producto.getId())) {
+            if (detallePedido.getProducto().getId().equals(producto.getId())) {
                 return detallePedido;
-            }*/
-            //DESCOMENTAR CUANDO ESTE LISTO DETALLEPEDIDO
+            }
+            
         }
         throw new EntidadNoEncontradaException("Error: Entidad no encontrada.");
     }

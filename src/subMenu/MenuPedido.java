@@ -83,7 +83,7 @@ public class MenuPedido {
                                 double subtotal = cant * p.getPrecio();
                             
                                 //Agrego el detallePedido
-                                pedido.addDetallePedido(cant, subtotal, p);
+                                pedido.addDetallePedido(cant, p);
                             
                                 System.out.println("Desea agregar otro producto? (S/N) ");
                                 opc = input.nextLine();
