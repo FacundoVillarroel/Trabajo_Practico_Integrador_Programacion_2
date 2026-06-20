@@ -54,8 +54,11 @@ public class MenuPedido {
                         Long idUsuario = Validaciones.solicitarId(input); //Pido ID
                         
                         Usuario u = UsuarioService.buscarPorId(idUsuario);
+                        if ( u == null){
+                            System.out.println("Usuario no encontrado.");
+                            break; 
+                        }
                         System.out.println("Usuario encontrado!");
-                        
                         //Instancio el pedido
                         Pedido pedido = new Pedido(u);
                         
@@ -67,6 +70,10 @@ public class MenuPedido {
                                 System.out.println("Ingrese ID del producto: ");
                                 Long idProducto = Long.valueOf(input.nextLine());
                                 Producto p = ProductoService.buscarPorId(idProducto);
+                                if (p == null){
+                                    throw new AtributoInvalidoException("Error: Producto no encontrado.");
+                                    
+                                }
                                                         
                                 System.out.println("Ingrese la cantidad: ");
                                 int cant = Integer.parseInt(input.nextLine());
