@@ -1,4 +1,5 @@
 
+import data.Data;
 import java.util.Scanner;
 import subMenu.MenuCategoria;
 import subMenu.MenuPedido;
@@ -10,8 +11,11 @@ import subMenu.MenuUsuario;
 public class Main {
 
     public static void main(String[] args) {
+        /* //Descomentar para cargar datos para la demostración.
+        Data.cargarDatosDemo(); 
+        */
         String opcion;
-
+        
         Scanner input= new Scanner(System.in);
         
         do {
