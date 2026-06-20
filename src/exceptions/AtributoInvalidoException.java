@@ -1,7 +1,7 @@
 
 package exceptions;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class AtributoInvalidoException extends RuntimeException {
     public AtributoInvalidoException(String mensaje) {

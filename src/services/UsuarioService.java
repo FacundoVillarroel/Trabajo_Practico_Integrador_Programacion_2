@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.Validaciones;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class UsuarioService {
 

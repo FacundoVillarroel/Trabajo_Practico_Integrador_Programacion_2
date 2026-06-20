@@ -1,7 +1,7 @@
 
 package services;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 import static data.Data.pedidos;
 import entities.Pedido;

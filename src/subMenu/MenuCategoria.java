@@ -1,7 +1,7 @@
 
 package subMenu;
 
- //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+ //@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 import entities.Categoria;
 import exceptions.EntidadDuplicadaException;
 import exceptions.EntidadNoEncontradaException;
