@@ -34,9 +34,9 @@ Cada modulo permite realizar las siguientes operaciones.
 0. Volver al menu principal
 
 EJECUCION--
-2. Abir el proyecto NetBeans.
-3. Ejecutar la clase 'Main'.
-4. Utilizar el menu en consola para gestionas las opciones.
+1. Abir el proyecto NetBeans.
+2. Ejecutar la clase 'Main'.
+3. Utilizar el menu en consola para gestionas las opciones.
 
 
 CONCEPTOS APLICADOS--
