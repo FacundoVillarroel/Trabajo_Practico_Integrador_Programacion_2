@@ -51,19 +51,7 @@ public class ProductoService {
 
     // Lista elementos no eliminados
     public static List<Producto> listar() {
-    // Creamos una lista nueva vacía para guardar el resultado
-    List<Producto> productosActivos = new ArrayList<>();
-    
-    // Recorremos la lista original de productos uno por uno    
-    for (Producto prod : Data.productos) {
-        // Si el prudcto NO está eliminado
-        if (!prod.getEliminado()) {
-            // Lo agregamos a lista de activos
-            productosActivos.add(prod);
-        }
-    }
-    // Devolvemos la lista de activos
-    return productosActivos;
+        return Validaciones.filtrarActivos(Data.productos);
     }
     
     // Modifica si vienen datos nuevos

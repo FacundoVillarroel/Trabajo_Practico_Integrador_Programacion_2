@@ -11,6 +11,7 @@ import exceptions.AtributoInvalidoException;
 import exceptions.EntidadNoEncontradaException;
 import java.util.ArrayList;
 import java.util.List;
+import utils.Validaciones;
 
 public class PedidoService {
     
@@ -19,14 +20,7 @@ public class PedidoService {
      * @return ArrayList - Lista de pedidos no eliminados
      */
     public static List<Pedido> listar() {
-        List<Pedido> pedidosNoEliminados = new ArrayList<>(); //Creo Lista vacia
-        
-        for (Pedido pedido : pedidos) { //Recorro la lista de pedidos
-            if (!pedido.getEliminado()) {
-                pedidosNoEliminados.add(pedido); //Agrego aquellos que no han sido eliminados
-            }
-        }
-        return pedidosNoEliminados;
+        return Validaciones.filtrarActivos(pedidos);
     }
     
     /**
