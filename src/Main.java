@@ -5,7 +5,7 @@ import subMenu.MenuPedido;
 import subMenu.MenuProducto;
 import subMenu.MenuUsuario;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class Main {
 

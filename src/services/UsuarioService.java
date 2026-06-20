@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.Validaciones;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class UsuarioService {
 
@@ -38,20 +38,8 @@ public class UsuarioService {
     }
 
     public static List<Usuario> listar() {
-    // Creamos una lista nueva vacía para guardar el resultado
-    List<Usuario> usuariosActivos = new ArrayList<>();
-    
-    // Recorremos la lista original de usuarios uno por uno
-    for (Usuario usr : Data.usuarios) {
-        // Si el usuario NO está eliminado
-        if (!usr.getEliminado()) {
-            // Lo agregamos a lista de activos
-            usuariosActivos.add(usr);
-        }
+        return Validaciones.filtrarActivos(Data.usuarios);
     }
-    // Devolvemos la lista de activos
-    return usuariosActivos;
-}
 
     // Modifica si vienen datos nuevos
     public static void editar(Long id, String nombre, String apellido, String mail, String celular, String contrasenia, Rol rol) {

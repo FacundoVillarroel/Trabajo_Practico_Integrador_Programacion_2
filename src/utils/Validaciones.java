@@ -1,8 +1,11 @@
 
 package utils;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
+import entities.Base;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -36,5 +39,16 @@ public class Validaciones {
             System.out.println("Error: Debe ingresar un número id válido");
             return null;
         }
+    }
+    
+    //Devuelve unicamente las entidades activas (No eliminadas)
+    public static <T extends Base> List<T> filtrarActivos(List<T> lista) {
+        List<T> activos = new ArrayList<>();
+        for (T elemento : lista) {
+            if (!elemento.getEliminado()) {
+                activos.add(elemento);
+            }
+        }
+        return activos;
     }
 }

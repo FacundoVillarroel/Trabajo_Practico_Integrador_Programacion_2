@@ -6,7 +6,7 @@ import java.util.Scanner;
 import services.ProductoService;
 import utils.Validaciones;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class MenuProducto {
     public static void mostrar(Scanner input) {

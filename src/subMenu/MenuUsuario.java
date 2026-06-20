@@ -11,7 +11,7 @@ import java.util.Scanner;
 import services.UsuarioService;
 import utils.Validaciones;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class MenuUsuario {
     

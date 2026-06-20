@@ -1,12 +1,13 @@
 package services;
 
- //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+ //@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 import entities.Categoria;
 import data.Data;
 import exceptions.EntidadDuplicadaException;
 import exceptions.EntidadNoEncontradaException;
 import java.util.ArrayList;
 import java.util.List;
+import utils.Validaciones;
 
 public class CategoriaService {
     public static Categoria crear(String nombre, String descripcion) {
@@ -18,9 +19,7 @@ public class CategoriaService {
     }
 
     public static List<Categoria> listar() {
-        List<Categoria> categoriasFiltradas = new ArrayList<>(Data.categorias); //Creo un nuevo array para no modificar la lista original
-        categoriasFiltradas.removeIf(cat -> cat.getEliminado()); //Remuevo de la lista las categorias que tengan valor 'true' en atributo eliminado
-        return categoriasFiltradas;
+        return Validaciones.filtrarActivos(Data.categorias);
     }
 
     public static void editar(Long id, String nombre, String descripcion) {
