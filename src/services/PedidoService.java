@@ -4,6 +4,7 @@ package services;
 //@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 import static data.Data.pedidos;
+import entities.DetallePedido;
 import entities.Pedido;
 import enums.Estado;
 import enums.FormaPago;
@@ -76,6 +77,11 @@ public class PedidoService {
         
         //Elimino el pedido (soft delete)
         pedidoAEliminar.setEliminado(true);
+        
+        //Ahora, elimino los detallesPedido correspondientes a dicho pedido
+        for (DetallePedido detalle : pedidoAEliminar.getDetallePedidos()) {
+            detalle.setEliminado(true);
+        }
         
         //Confimarcion de eliminacion
         if (pedidoAEliminar.getEliminado()) {

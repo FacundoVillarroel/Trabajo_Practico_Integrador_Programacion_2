@@ -31,7 +31,7 @@ public class Pedido extends Base implements Calculable {
         this.estado = estado;
         this.total = total;
         this.formaPago = formaPago;
-        this.detallePedidos = new ArrayList<>();//Ver Relacion de composicion (1aN) con DetallePedido
+        this.detallePedidos = new ArrayList<>();//Relacion de composicion (1aN) con DetallePedido
         this.usuario = usuario; //Regla de negocio: No permitir crear Pedido sin usuario.
        
     }
@@ -109,7 +109,6 @@ public class Pedido extends Base implements Calculable {
     /**
      * Agrega un detallePedido a la lista de detallePedidos, con validaciones previas
      * @param cantidad int Cantidad de productos
-     * @param subtotal double Precio subtotal (cant*precioUnitarioProducto)
      * @param producto Objeto de la clase Producto
      */
     public void addDetallePedido(int cantidad, Producto producto) {
@@ -121,7 +120,6 @@ public class Pedido extends Base implements Calculable {
             throw new EntidadNoEncontradaException("Error: Entidad nula.");
         }
         detallePedidos.add(new DetallePedido(cantidad, producto)); 
-        
         
         //Recalculo el total con el nuevo detallePedido:
         calcularTotal();
@@ -148,7 +146,7 @@ public class Pedido extends Base implements Calculable {
             throw new EntidadNoEncontradaException("Error: Entidad nula.");
         }
         DetallePedido detPedidoEnc = buscarDetallePorProducto(producto);
-        detPedidoEnc.setEliminado(true); //Soft delete - DESCOMENTAR CUANDO ESTE LISTO DETALLEPEDIDO
+        detPedidoEnc.setEliminado(true); //Soft delete
         detPedidoEnc.setCantidad(0);
         detPedidoEnc.setSubtotal(0);
         System.out.println("Detalle pedido eliminado.");
