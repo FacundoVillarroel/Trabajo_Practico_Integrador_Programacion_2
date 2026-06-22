@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.Validaciones;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class ProductoService {
 
@@ -51,22 +51,21 @@ public class ProductoService {
 
     // Lista elementos no eliminados
     public static List<Producto> listar() {
-        List<Producto> productosFiltrados = new ArrayList<>(Data.productos);
-        productosFiltrados.removeIf(prod -> prod.getEliminado());
-        return productosFiltrados;
+        return Validaciones.filtrarActivos(Data.productos);
     }
     
     // Modifica si vienen datos nuevos
     public static void editar(Long id, String nombre, String descripcion, Double precio, Integer stock, String imagen, Boolean disponible, Long categoriaId) {
+        // Busqueda de producto
         Producto prodAEditar = buscarPorId(id);
        
-        // Validaciones
+        // Validacion de existencia
         if (prodAEditar == null) {
             throw new EntidadNoEncontradaException("Error: No existe ningún producto activo con el ID " + id);
         }
 
+        // Validaciones
         if (!Validaciones.esTextoVacio(nombre)) prodAEditar.setNombre(nombre);
-        
         if (!Validaciones.esTextoVacio(descripcion)) prodAEditar.setDescripcion(descripcion);
         
         if (precio != null) {
@@ -100,17 +99,21 @@ public class ProductoService {
 
     // Metodo de eliminar
     public static Boolean eliminar(Long id) {
+        // Busqueda de producto
         Producto producto = buscarPorId(id);
         if (producto == null) return false;
-
+        // Si producto es encontrado, se setea true en atributo eliminado
         producto.setEliminado(true);
         return true;
     }
 
-    private static Producto buscarPorId(Long id) {
+    public static Producto buscarPorId(Long id) {
         List<Producto> productosFiltrados = listar(); // Trae solo disponibles
+        // Se recorre la lista de productos filtrados
         for (Producto prod : productosFiltrados) {
+            // Se compara el id ingresado, con los id almacenados
             if (id.equals(prod.getId())) {
+                // Si hay coincidencia, se devuelve el producto
                 return prod;
             }
         }
@@ -119,12 +122,17 @@ public class ProductoService {
 
     // Generador incremental de ID 
     private static Long generarSiguienteId() {
+        // Inicializamos variable en 0
         long maxId = 0L;
+        // Recorremos la lista de productos
         for (Producto prod : Data.productos) {
+            // Comparamos el ID del producto actual con el ID máximo que tenemos guardado.
             if (prod.getId() > maxId) {
+                // Si el ID de este producto es mayor, lo actualizamos con este nuevo valor
                 maxId = prod.getId();
             }
         }
+        // Al finalizar el bucle, maxId tiene el ID mayor de la lista, y le sumamos 1 (para generar un ID unico) 
         return maxId + 1L;
     }
 }

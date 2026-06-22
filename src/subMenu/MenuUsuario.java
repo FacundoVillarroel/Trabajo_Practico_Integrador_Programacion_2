@@ -9,8 +9,9 @@ import exceptions.EntidadNoEncontradaException;
 import java.util.List;
 import java.util.Scanner;
 import services.UsuarioService;
+import utils.Validaciones;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class MenuUsuario {
     
@@ -68,8 +69,14 @@ public class MenuUsuario {
                     break;
                 }
                 case "3": { // Editar
+                    // Validacion de existencia de usuarios
+                    if (UsuarioService.listar().isEmpty()) {
+                        System.out.println("No hay usuarios cargados para editar.");
+                        break;
+                    }
+                    
                     mostrarUsuarios();
-                    Long id = solicitarId(input);
+                    Long id = Validaciones.solicitarId(input);
                     if (id == null) break;
 
                     try {
@@ -111,10 +118,16 @@ public class MenuUsuario {
                     break;
                 }
                 case "4": { // Eliminar
+                    // Validacion de existencia de usuarios
+                    if (UsuarioService.listar().isEmpty()) {
+                        System.out.println("No hay usuarios cargados para eliminar.");
+                        break;
+                    }
+                    
                     System.out.println("");
                     mostrarUsuarios();
                     
-                    Long id = solicitarId(input);
+                    Long id = Validaciones.solicitarId(input);
                     if (id == null) break;
 
                     System.out.print("¿Está seguro desea eliminar este usuario? S/N: ");
@@ -156,14 +169,4 @@ public class MenuUsuario {
             System.out.println("-----------------------------------------------------------------\n");
         }
     }
-
-    private static Long solicitarId(Scanner input) {
-        try {
-            System.out.print("Ingrese Id: ");
-            return Long.valueOf(input.nextLine());
-        } catch (NumberFormatException error) {
-            System.out.println("Error: Debe ingresar un número id válido");
-            return null;
-        }
-    }   
 }

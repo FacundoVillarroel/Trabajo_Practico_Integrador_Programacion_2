@@ -1,13 +1,14 @@
 
 package subMenu;
 
- //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+ //@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 import entities.Categoria;
 import exceptions.EntidadDuplicadaException;
 import exceptions.EntidadNoEncontradaException;
 import java.util.List;
 import java.util.Scanner;
 import services.CategoriaService;
+import utils.Validaciones;
 
 
 public class MenuCategoria {
@@ -49,10 +50,15 @@ public class MenuCategoria {
                     break;
                 }
                 case "3": {//Editar
-                    mostrarCategorias();
+                    boolean hayCategorias = mostrarCategorias(); 
+                    if (!hayCategorias){
+                        break;
+                    }
+                    
+                    //Solicito el id con la función auxiliar.
                     Long id = null;
                     do {
-                        id = solicitarId(input);
+                        id = Validaciones.solicitarId(input);
                     } while (id == null);
                     
                     System.out.println("Nuevo nombre(Enter para mantener el actual)");
@@ -73,10 +79,12 @@ public class MenuCategoria {
                 }
                 case "4":{ //Eliminar
                     System.out.println("");
-                    mostrarCategorias(); 
+                    boolean hayCategorias = mostrarCategorias(); 
+                    if (!hayCategorias){
+                        break;
+                    }
                     
-                    //Solicito el id con la función auxiliar.
-                    Long id = solicitarId(input);
+                    Long id = Validaciones.solicitarId(input);
                     if(id == null) {
                         break;
                     }
@@ -84,12 +92,14 @@ public class MenuCategoria {
                     System.out.print("Está seguro desea eliminar esta categoría S/N: ");
                     String confirmacion = input.nextLine();
                     if(confirmacion.equalsIgnoreCase("S")){
-                        Boolean fueEliminada = CategoriaService.eliminar(id);  //Según la respuesta del service muestro un mensaje u otro.
-                        if (fueEliminada) {
+                        try{
+                            CategoriaService.eliminar(id);
                             System.out.println("Categoria eliminada correctamente");
-                        } else {
-                            System.out.println("No existe categoria con id " + id);
-                        }
+                        } catch (EntidadNoEncontradaException error){
+                            System.out.println(error.getMessage());
+                        } catch (RuntimeException error){
+                            System.out.println(error.getMessage());
+                        } 
                     } else {
                         System.out.println("Operación cancelada");
                     }
@@ -107,25 +117,17 @@ public class MenuCategoria {
         } while (!opcion.equals("0"));
     }
     
-    private static void mostrarCategorias() {
+    private static boolean mostrarCategorias() {
         List<Categoria> categorias = CategoriaService.listar();
 
         if (categorias.isEmpty()) {
             System.out.println("No hay categorías cargadas");
+            return false;
         } else {
             for (Categoria categoria : categorias) {
                 System.out.println(categoria);
             }
+            return true;
         }
     }
-    
-    private static Long solicitarId(Scanner input) { //Solicita un id como tipo de dato Long, en caso que sea inválido retorna null
-        try {
-            System.out.print("Ingrese Id: ");
-            return Long.valueOf(input.nextLine());
-        } catch (NumberFormatException error) {
-            System.out.println("Error: Debe ingresar un número id válido");
-            return null;
-        }
-    }   
 }

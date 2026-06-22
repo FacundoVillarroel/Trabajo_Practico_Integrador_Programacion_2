@@ -1,12 +1,13 @@
 package services;
 
- //@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+ //@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 import entities.Categoria;
 import data.Data;
 import exceptions.EntidadDuplicadaException;
 import exceptions.EntidadNoEncontradaException;
 import java.util.ArrayList;
 import java.util.List;
+import utils.Validaciones;
 
 public class CategoriaService {
     public static Categoria crear(String nombre, String descripcion) {
@@ -18,9 +19,7 @@ public class CategoriaService {
     }
 
     public static List<Categoria> listar() {
-        List<Categoria> categoriasFiltradas = new ArrayList<>(Data.categorias); //Creo un nuevo array para no modificar la lista original
-        categoriasFiltradas.removeIf(cat -> cat.getEliminado()); //Remuevo de la lista las categorias que tengan valor 'true' en atributo eliminado
-        return categoriasFiltradas;
+        return Validaciones.filtrarActivos(Data.categorias);
     }
 
     public static void editar(Long id, String nombre, String descripcion) {
@@ -37,12 +36,15 @@ public class CategoriaService {
         }
     }
 
-    public static Boolean eliminar(Long id) { //Retorna true si se eliminó categoria o false si no se eliminó
+    public static void eliminar(Long id) { 
         Categoria categoria = buscarPorId(id);
-        if (categoria == null) return false;
-
+        if (categoria == null) {
+            throw new EntidadNoEncontradaException("No existe categoria con id: " + id);
+        }
+        if (!categoria.getProductos().isEmpty()){ //Si tiene productos asignados a su categoria entonces lanza error.
+            throw new RuntimeException("Error: Esta categoría tiene productos asignados, se deben desvincular antes de eliminar la categoría");
+        }
         categoria.setEliminado(true);
-        return true;
     }
     
     private static Categoria buscarPorId(Long id) {

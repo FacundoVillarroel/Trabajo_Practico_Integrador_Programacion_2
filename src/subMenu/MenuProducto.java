@@ -4,8 +4,9 @@ import entities.Producto;
 import java.util.List;
 import java.util.Scanner;
 import services.ProductoService;
+import utils.Validaciones;
 
-//@authors - Fiorella, Jonathan Soza, Virginia Paloma, Facundo Villarroel
+//@authors - Fiorella Salazar, Jonathan Soza, Virginia Paloma, Facundo Villarroel
 
 public class MenuProducto {
     public static void mostrar(Scanner input) {
@@ -25,11 +26,11 @@ public class MenuProducto {
             opcion = input.nextLine();
 
             switch (opcion) {
-                case "1": {
+                case "1": { // Listar
                     mostrarProductos();
                     break;
                 }
-                case "2": {
+                case "2": { // Crear
                     try {
                         System.out.print("Ingrese Nombre del Producto: ");
                         String nombre = input.nextLine();
@@ -64,14 +65,23 @@ public class MenuProducto {
                     }
                     break;
                 }
-                case "3": {
+                case "3": { // Editar
+                    // Validacion de existencia de productos
+                    if (ProductoService.listar().isEmpty()) {
+                        System.out.println("No hay productos cargados para editar.");
+                        break;
+                    }
+                    
                     mostrarProductos();
-                    Long id = solicitarId(input);
+                    Long id = Validaciones.solicitarId(input);
                     if (id == null) {
                         break;
                     }
 
                     try {
+                        // Validar que exista el ID antes de pedir los datos
+                        ProductoService.editar(id, null, null, null, null, null, null, null);
+                        
                         System.out.print("Nuevo nombre (Enter para mantener el actual): ");
                         String nombre = input.nextLine();
                         System.out.print("Nueva descripción (Enter para mantener la actual): ");
@@ -127,10 +137,16 @@ public class MenuProducto {
                     }
                     break;
                 }
-                case "4": {
+                case "4": { // Eliminar 
+                    // Validacion de existencia de productos
+                    if (ProductoService.listar().isEmpty()) {
+                        System.out.println("No hay productos cargados para eliminar.");
+                        break;
+                    }
+   
                     System.out.println("");
                     mostrarProductos();
-                    Long id = solicitarId(input);
+                    Long id = Validaciones.solicitarId(input);
                     if (id == null) {
                         break;
                     }
@@ -148,7 +164,7 @@ public class MenuProducto {
                     break;
                 }
             }
-        } while (!opcion.equals("0"));
+        } while (!opcion.equals("0")); // Volver al menú principal
     }
     
     private static void mostrarProductos() {
@@ -163,16 +179,6 @@ public class MenuProducto {
                 System.out.println(productoInd);
             }
             System.out.println("-----------------------------------------------------------------\n");
-        }
-    }
-
-    private static Long solicitarId(Scanner input) {
-        try {
-            System.out.print("Ingrese Id: ");
-            return Long.valueOf(input.nextLine());
-        } catch (NumberFormatException error) {
-            System.out.println("Error: Debe ingresar un número id válido");
-            return null;
         }
     }
 }
