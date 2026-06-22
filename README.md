@@ -1,5 +1,6 @@
 # Trabajo_Practico_Integrador_Programacion_2
 Trabajo Integrador de la materia Programación 2, Tecnicatura Universitaria en Programación, Universidad Tecnológica Nacional.
+
 El proyecto desarrollado en Java es un sistema que permite gestionar un catalogo de productos, administracion de usuarios y procesamiento de pedidos detallados, permitiendo crear, editar y eliminar en las diferentes categorias que lo componen.
 
 DESCRIPCION DEL SISTEMA--
