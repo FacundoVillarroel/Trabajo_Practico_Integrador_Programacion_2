@@ -33,3 +33,7 @@ EJECUCION--
 CONCEPTOS APLICADOS-- -Encapsulamiento -Herencia -Polimorfismo -Manejo de excepciones -Validacion de datos -Colecciones
 
 Alumnos: Facundo Villarroel. Virginia Paloma. Jonathan Soza. Fiorella Salazar.
+
+
+Link al video de demostración:
+https://www.youtube.com/watch?v=9PxA3Y8ekpk&feature=youtu.be
